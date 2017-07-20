@@ -1,20 +1,27 @@
 # this needs to be set for brew to work
 export PATH=/usr/local/bin:$PATH
-
-# Install homebrew if not present
-hash brew 2> /dev/null || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-# Install utilities if not present
-for util in git zsh antigen "bash-completion" python3 jq openssl; do
-  if ! brew list --versions "$util" > /dev/null; then
-    hash "$util" 2> /dev/null || brew install "$util"
-  fi
-done
-
-# Intall nvm if not present
 export NVM_DIR="$HOME/.nvm"
-if [ ! -s "$NVM_DIR/nvm.sh" ]; then
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+
+if ! [ -e "$HOME/.zshbootstrapped" ]; then
+  # notify
+  echo "Bootstrapping shell for the first time!"
+
+  # Install homebrew if not present
+  hash brew 2> /dev/null || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+  # Install utilities if not present
+  for util in git zsh antigen "bash-completion" python3 jq openssl; do
+    if ! brew list --versions "$util" > /dev/null; then
+      brew install "$util"
+    fi
+  done
+
+  # Intall nvm if not present
+  if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+  fi
+
+  touch ~/.zshbootstrapped
 fi
 
 # Load antigen
