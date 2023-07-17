@@ -1,0 +1,3 @@
+#!/bin/zsh
+# Include secret api keys here
+# Make sure not to commit this to git!

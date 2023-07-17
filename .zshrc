@@ -1,21 +1,5 @@
 # ~/.zshrc
 
-# ironclad env
-source $HOME/.zshrc_ironclad
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-export HELLOSIGN_API_KEY=''
-export PROJECTS_HOME="$HOME/projects"
-export IRONCLAD_HOME="$PROJECTS_HOME/ironclad"
-export HARBOR_HOME="$IRONCLAD_HOME/harbor"
-export SUPER_HOME="$IRONCLAD_HOME/super"
-export SDM_EMAIL="matthew.burghoffer@ironcladhq.com"
-export ES_JAVA_HOME=$(/usr/libexec/java_home)
-
-# env
-export PATH=/usr/local/bin:$PATH
-export JAVA_HOME=$(/usr/libexec/java_home -v 11)
-
 # Load antigen
 source /usr/local/share/antigen/antigen.zsh
 

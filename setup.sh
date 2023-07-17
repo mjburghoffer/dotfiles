@@ -5,10 +5,13 @@
 brew update && brew install git zsh antigen python3 jq openssl
 xcode-select --install
 
-# make required dirs
+# starship stuff
 mkdir -p ~/.starship/cache
-mkdir -p ~/.iterm2
+cp --update ./starship.toml ~/.starship/
 
-# copy files
+# iterm stuff - make sure to import into iterm
+mkdir -p ~/.iterm2
 cp --update ./com.googlecode.iterm2.plist ~/.iterm2/
-cp --update ./tarship.toml ~/.starship/
+
+# keys file
+cp --no-clobber ./zkeys ~/
