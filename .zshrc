@@ -21,14 +21,3 @@ eval "$(pyenv init -)"
 
 # dev connect via strongdm
 alias devc="$IRONCLAD_HOME/dev/connect"
-
-# super alias
-super() {
-  (
-    if [ "$1" = "env" ]; then
-      . "$SUPER_HOME/dev.env"
-    else
-      "$SUPER_HOME/$@"
-    fi
-  )
-}
