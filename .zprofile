@@ -5,6 +5,13 @@ source ~/.zkeys
 
 ulimit -n 65536
 
+BREWPATH=""
+if [ "$(arch)" = "arm64" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # completions
 source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
@@ -19,24 +26,13 @@ export SDM_EMAIL="matthew.burghoffer@ironcladhq.com"
 export ES_JAVA_HOME=$(/usr/libexec/java_home)
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 
-# unset ironclad's bad google-cloud-sdk source
-# case `grep -q -e '^source .*google-cloud-sdk/.*$' "$HOME/.zshrc_ironclad"; echo $?` in
-#   0)
-#     perl -i -pe's/^(source .+google-cloud-sdk.+)$/# \1/' "$HOME/.zshrc_ironclad"
-#     ;;
-#   1)
-#     # nada
-#     ;;
-#   *)
-#     echo 'Error while trying to fix google-cloud-sdk source'
-#     ;;
-# esac
-
 # commented out to make sure super setup doesn't add this line
 # source $HOME/.zshrc_ironclad
 
 # yoink only the env vars out of $HOME/.zshrc_ironclad
-eval $(grep -E '^export [A-Z][A-Z_0-9]*[A-Z]="?[^${}:]+"?$' "$HOME/.zshrc_ironclad" --color=never)
+if [ ! -f "$HOME/.zshrc_ironclad" ]; then
+    eval $(grep -E '^export [A-Z][A-Z_0-9]*[A-Z]="?[^${}:]+"?$' "$HOME/.zshrc_ironclad" --color=never)
+fi
 
 # path
 eval "$(pyenv init --path)"
