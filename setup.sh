@@ -13,7 +13,7 @@ fi
 
 if [ ! -f "$BREWPATH" ]; then
   echo "Installing brew because '$BREWPATH' does not exist"
-  /bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 BREW_STATUS=0
@@ -24,13 +24,19 @@ if [[ $BREW_STATUS != 0 ]] ; then
 fi
 
 # install stuff
-echo "Install stuff with brew"
-brew update --quiet && brew install git zsh antigen python3 pyenv jq openssl starship --quiet
+brew update --quiet && brew install git zsh antigen python3 pyenv jq openssl starship
 brew tap homebrew/cask-versions --quiet
-brew install --cask temurin temurin11 temurin17 --quiet
+brew install --cask temurin temurin11 temurin17
 
+# install xcode-select
 XCODE_SELECT_STATUS=0
 xcode-select --install > /dev/null 2>&1 || XCODE_SELECT_STATUS=$?
+
+# install volta
+curl -fsS https://get.volta.sh | bash
+
+# install node and yarn
+volta install node npm yarn
 
 # profile files
 echo "Set up zprofile"
@@ -53,34 +59,47 @@ rsync -u ./com.googlecode.iterm2.plist "$HOME/.iterm2/"
 touch "$HOME/.zkeys"
 
 # hostname
-export HOSTNAME="IronBurg2"
-sudo scutil --set HostName "$HOSTNAME"
-sudo scutil --set LocalHostName "$HOSTNAME"
-sudo scutil --set ComputerName "$HOSTNAME"
-dscacheutil -flushcache
+HOSTNAME="IronBurg2"
+HOSTNAME_CHANGED=0
+echo "Set up hostname to be '$HOSTNAME'"
+if [ "$(scutil --get HostName)" != "$HOSTNAME" ]; then
+  sudo scutil --set HostName "$HOSTNAME"
+  HOSTNAME_CHANGED=1
+fi
+if [ "$(scutil --get LocalHostName)" != "$HOSTNAME" ]; then
+  sudo scutil --set LocalHostName "$HOSTNAME"
+  HOSTNAME_CHANGED=1
+fi
+if [ "$(scutil --get ComputerName)" != "$HOSTNAME" ]; then
+  sudo scutil --set ComputerName "$HOSTNAME"
+  HOSTNAME_CHANGED=1
+fi
+if [[ $HOSTNAME_CHANGED != 0 ]] ; then
+  dscacheutil -flushcache
+fi
 
 # git configuration
 echo "Set up git config"
-git config --global user.email matthew.burghoffer@ironcladhq.com
-git config --global user.name Matthew Burghoffer
+git config --global user.email 'matthew.burghoffer@ironcladhq.com'
+git config --global user.name 'Matthew Burghoffer'
 
-git config --global pull.default current
+git config --global pull.default 'current'
 
-git config --global push.default current
+git config --global push.default 'current'
 
-git config --global checkout.defaultRemote origin
-git config --global checkout.autoSetupRemote true
+git config --global checkout.defaultRemote 'origin'
+git config --global --type=bool checkout.autoSetupRemote 'true'
 
 git config --global core.editor 'code --wait'
 
-git config --global diff.tool vscode
+git config --global diff.tool 'vscode'
 
 git config --global difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'
 
-git config --global merge.tool vscode
+git config --global merge.tool 'vscode'
 
 git config --global mergetool.vscode.cmd 'code --wait $MERGED'
 
-git config --global pull.ff only
+git config --global pull.ff 'only'
 
 git config --global alias.set-upstream '!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`'
