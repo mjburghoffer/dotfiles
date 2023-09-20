@@ -1,7 +1,7 @@
-# ~/.zshrc
+#!/bin/zsh
 
 # Load antigen
-source /usr/local/share/antigen/antigen.zsh
+source "$(brew --prefix)/share/antigen/antigen.zsh"
 
 # Set up antigen
 antigen use oh-my-zsh
@@ -9,8 +9,8 @@ antigen bundle git
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # configure starship theme
-export STARSHIP_CONFIG=~/.starship/starship.toml
-export STARSHIP_CACHE=~/.starship/cache
+export STARSHIP_CONFIG="$HOME/.starship/starship.toml"
+export STARSHIP_CACHE="$HOME/.starship/cache"
 eval "$(starship init zsh)"
 
 # Finalize antigen
