@@ -21,3 +21,6 @@ eval "$(pyenv init -)"
 
 # dev connect via strongdm
 alias devc="$IRONCLAD_HOME/dev/connect"
+
+# commented out to make sure super setup doesn't add this line
+# source $HOME/.zshrc_ironclad
