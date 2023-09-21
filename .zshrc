@@ -16,9 +16,6 @@ eval "$(starship init zsh)"
 # Finalize antigen
 antigen apply
 
-# enable pyenv
-eval "$(pyenv init -)"
-
 # dev connect via strongdm
 alias devc="$IRONCLAD_HOME/dev/connect"
 

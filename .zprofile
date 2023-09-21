@@ -20,7 +20,7 @@ export HARBOR_HOME="$IRONCLAD_HOME/harbor"
 export SUPER_HOME="$IRONCLAD_HOME/super"
 export SDM_EMAIL="matthew.burghoffer@ironcladhq.com"
 export ES_JAVA_HOME=$(/usr/libexec/java_home)
-export JAVA_HOME=$(/usr/libexec/java_home)
+export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 
 # commented out to make sure super setup doesn't add this line
 # source $HOME/.zshrc_ironclad
@@ -45,10 +45,18 @@ export PATH="$PATH:$VOLTA_HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 
+alias java="$JAVA_HOME/bin/java"
+
 super() {
   if [ "$1" = "env" ]; then
-    . "${IRONCLAD_HOME}/super/dev.env"
+    (
+      cd "$IRONCLAD_HOME"
+      . "super/dev.env"
+    )
   else
-    eval "${IRONCLAD_HOME}/super/$@"
+    (
+      cd "$IRONCLAD_HOME"
+      eval "super/$@"
+    )
   fi
 }
