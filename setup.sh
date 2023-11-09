@@ -24,7 +24,7 @@ if [[ $BREW_STATUS != 0 ]] ; then
 fi
 
 # install stuff
-brew update --quiet && brew install git zsh antigen python3 pyenv jq openssl starship neovim
+brew update --quiet && brew install git zsh antigen python3 pyenv jq openssl starship neovim nvm
 brew tap homebrew/cask-versions --quiet
 brew install --cask temurin temurin11 temurin17
 

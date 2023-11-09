@@ -5,7 +5,6 @@ source ~/.zkeys
 
 ulimit -n 65536
 
-BREWPATH=""
 if [ "$(arch)" = "arm64" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 else
@@ -37,6 +36,11 @@ fi
 if [ -f "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc" ]; then
     source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 fi
+
+# nvm setup
+export NVM_DIR="$HOME/.nvm"
+  [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # path
 eval "$(pyenv init --path)"
