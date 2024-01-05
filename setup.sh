@@ -24,7 +24,7 @@ if [[ $BREW_STATUS != 0 ]] ; then
 fi
 
 # install stuff
-brew update --quiet && brew install git zsh antigen python3 pyenv jq openssl starship neovim nvm
+brew update --quiet && brew install diff-so-fancy git zsh sheldon fzf python3 pyenv jq openssl starship neovim nvm zig wasmtime wabt fd
 brew tap homebrew/cask-versions --quiet
 brew install --cask temurin temurin11 temurin17
 
@@ -35,8 +35,13 @@ xcode-select --install > /dev/null 2>&1 || XCODE_SELECT_STATUS=$?
 # install volta
 curl -fsS https://get.volta.sh | bash
 
+# initialize sheldon
+echo "Installing Sheldon"
+rsync -u ./sheldon/plugins.toml "$HOME/.config/sheldon/plugins.toml"
+sheldon lock
+
 # install node and yarn
-volta install node npm yarn
+"$HOME/.volta/bin/volta" install node npm yarn
 
 # profile files
 echo "Set up zprofile"
@@ -44,6 +49,10 @@ rsync -u ./.zprofile "$HOME/.zprofile"
 
 echo "Set up zshrc"
 rsync -u ./.zshrc "$HOME/.zshrc"
+
+echo "Set up editor helper"
+mkdir -p "$HOME/.zsh_utils"
+rsync -u ./editor.zsh "$HOME/.zsh_utils/editor.zsh"
 
 # starship stuff
 echo "Set up starship"
@@ -54,9 +63,6 @@ rsync -u ./starship.toml "$HOME/.starship/"
 echo "Set up iterm config"
 mkdir -p "$HOME/.iterm2"
 rsync -u ./com.googlecode.iterm2.plist "$HOME/.iterm2/"
-
-# keys file
-touch "$HOME/.zkeys"
 
 # hostname
 HOSTNAME="IronBurg2"
@@ -103,3 +109,21 @@ git config --global mergetool.vscode.cmd 'code --wait $MERGED'
 git config --global pull.ff 'only'
 
 git config --global alias.set-upstream '!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`'
+
+## git diff-so-fancy
+git config --global core.pager "diff-so-fancy | less --tabs=2 -RF"
+git config --global interactive.diffFilter "diff-so-fancy --patch"
+git config --global --type=bool color.ui true
+
+git config --global color.diff-highlight.oldNormal    "red bold"
+git config --global color.diff-highlight.oldHighlight "red bold 52"
+git config --global color.diff-highlight.newNormal    "green bold"
+git config --global color.diff-highlight.newHighlight "green bold 22"
+
+git config --global color.diff.meta       "11"
+git config --global color.diff.frag       "magenta bold"
+git config --global color.diff.func       "146 bold"
+git config --global color.diff.commit     "yellow bold"
+git config --global color.diff.old        "red bold"
+git config --global color.diff.new        "green bold"
+git config --global color.diff.whitespace "red reverse"

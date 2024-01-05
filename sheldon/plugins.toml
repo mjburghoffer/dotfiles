@@ -1,0 +1,53 @@
+shell = "zsh"
+
+[templates]
+defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+
+[plugins]
+
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+[plugins.zsh-async]
+github = "mafredri/zsh-async"
+use = ["async.zsh"]
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+apply = ["defer"]
+
+[plugins.zsh-fuzzy-search-and-edit]
+github = "seletskiy/zsh-fuzzy-search-and-edit"
+apply = ["defer"]
+
+[plugins.zsh-fzf-history-search]
+github = "joshskidmore/zsh-fzf-history-search"
+apply = ["defer"]
+use = ["zsh-fzf-history-search.zsh"]
+
+[plugins.zsh-bd]
+github = "Tarrasch/zsh-bd"
+apply = ["defer"]
+
+[plugins.jq-zsh-plugin]
+github = "reegnz/jq-zsh-plugin"
+apply = ["defer"]
+
+[plugins.calc]
+github = "arzzen/calc.plugin.zsh"
+apply = ["defer"]
+
+[plugins.nx-completion]
+github = "jscutlery/nx-completion"
+apply = ["defer"]
+
+[plugins.zsh-npm-scripts-autocomplete]
+github = "grigorii-zander/zsh-npm-scripts-autocomplete"
+apply = ["defer"]
+
+[plugins.enhancd]
+github = "b4b4r07/enhancd"
+apply = ["defer"]
+
+[plugins.oh-my-zsh]
+github = "ohmyzsh/ohmyzsh"

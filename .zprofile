@@ -1,8 +1,5 @@
 #!/bin/zsh
 
-# keys
-source ~/.zkeys
-
 ulimit -n 65536
 
 if [ "$(arch)" = "arm64" ]; then
@@ -20,6 +17,8 @@ export SUPER_HOME="$IRONCLAD_HOME/super"
 export SDM_EMAIL="matthew.burghoffer@ironcladhq.com"
 export ES_JAVA_HOME=$(/usr/libexec/java_home)
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
+export VISUAL_EDITOR="webstorm"
+export ZSH="$HOME/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
 
 # commented out to make sure super setup doesn't add this line
 # source $HOME/.zshrc_ironclad
@@ -30,6 +29,8 @@ if [ -f "$HOME/.zshrc_ironclad" ]; then
 fi
 
 # completions
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
 if [ -f "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc" ]; then
     source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 fi
