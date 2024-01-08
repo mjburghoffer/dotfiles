@@ -12,12 +12,13 @@ github = "romkatv/zsh-defer"
 github = "mafredri/zsh-async"
 use = ["async.zsh"]
 
-[plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
+[plugins.fzf]
+github = "junegunn/fzf"
+use = ["shell/completion.zsh", "shell/key-bindings.zsh"]
 apply = ["defer"]
 
-[plugins.zsh-fuzzy-search-and-edit]
-github = "seletskiy/zsh-fuzzy-search-and-edit"
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
 apply = ["defer"]
 
 [plugins.zsh-fzf-history-search]
@@ -43,10 +44,6 @@ apply = ["defer"]
 
 [plugins.zsh-npm-scripts-autocomplete]
 github = "grigorii-zander/zsh-npm-scripts-autocomplete"
-apply = ["defer"]
-
-[plugins.enhancd]
-github = "b4b4r07/enhancd"
 apply = ["defer"]
 
 [plugins.oh-my-zsh]
