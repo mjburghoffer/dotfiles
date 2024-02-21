@@ -22,6 +22,9 @@ export ZSH="$HOME/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
 
 # commented out to make sure super setup doesn't add this line
 # source $HOME/.zshrc_ironclad
+if [ -f "$HOME/.zsh_secrets" ]; then
+    source "$HOME/.zsh_secrets"
+fi
 
 # yoink only the env vars out of $HOME/.zshrc_ironclad
 if [ -f "$HOME/.zshrc_ironclad" ]; then
