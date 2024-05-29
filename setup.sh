@@ -25,7 +25,6 @@ fi
 
 # install stuff
 brew update --quiet && brew install diff-so-fancy git zsh sheldon fzf python3 pyenv jq openssl starship neovim nvm zig wasmtime wabt fd
-brew tap homebrew/cask-versions --quiet
 brew install --cask temurin temurin@11 temurin@17 temurin@21
 
 # install xcode-select
