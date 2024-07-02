@@ -26,9 +26,12 @@ if [ -f "$HOME/.zsh_secrets" ]; then
     source "$HOME/.zsh_secrets"
 fi
 
-# yoink only the env vars out of $HOME/.zshrc_ironclad
+# yoink only the env vars and functions out of $HOME/.zshrc_ironclad
 if [ -f "$HOME/.zshrc_ironclad" ]; then
     eval $(grep -E '^export [A-Z][A-Z_0-9]*[A-Z]="?[^${}:]+"?$' "$HOME/.zshrc_ironclad" --color=never)
+
+    FUNCS=$(zsh -df --no-rcs -c "source $HOME/.zshrc_ironclad; declare -f $(sed -nr 's/^([a-zA-Z]+)\(\) *{$/\1/p' $HOME/.zshrc_ironclad | tr '\n' ' ')")
+    eval $FUNCS
 fi
 
 # completions
@@ -54,17 +57,3 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 
 alias java="$JAVA_HOME/bin/java"
-
-super() {
-  if [ "$1" = "env" ]; then
-    (
-      cd "$IRONCLAD_HOME"
-      . "super/dev.env"
-    )
-  else
-    (
-      cd "$IRONCLAD_HOME"
-      eval "super/$@"
-    )
-  fi
-}
