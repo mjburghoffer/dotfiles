@@ -30,7 +30,8 @@ fi
 if [ -f "$HOME/.zshrc_ironclad" ]; then
     eval $(grep -E '^export [A-Z][A-Z_0-9]*[A-Z]="?[^${}:]+"?$' "$HOME/.zshrc_ironclad" --color=never)
 
-    FUNCS=$(zsh -df --no-rcs -c "source $HOME/.zshrc_ironclad; declare -f $(sed -nr 's/^([a-zA-Z]+)\(\) *{$/\1/p' $HOME/.zshrc_ironclad | tr '\n' ' ')")
+    # launch a new blank shell that sources zshrc_ironclad and then gets its function definitions
+    FUNCS=$(env -i zsh -df --no-rcs -c "source $HOME/.zshrc_ironclad; declare -f $(sed -nr 's/^([a-zA-Z]+)\(\) *{$/\1/p' $HOME/.zshrc_ironclad | tr '\n' ' ')")
     eval $FUNCS
 fi
 
