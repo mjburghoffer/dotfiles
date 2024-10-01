@@ -37,6 +37,11 @@ curl -fsS https://get.volta.sh | bash
 # initialize sheldon
 echo "Installing Sheldon"
 rsync -u ./sheldon/plugins.toml "$HOME/.config/sheldon/plugins.toml"
+
+echo "Set up local plugins"
+mkdir -p "$HOME/.zsh_local_plugins"
+rsync -a -u ./plugins/ "$HOME/.zsh_local_plugins/"
+
 sheldon lock
 
 # install node and yarn
@@ -62,26 +67,6 @@ rsync -u ./starship.toml "$HOME/.starship/"
 echo "Set up iterm config"
 mkdir -p "$HOME/.iterm2"
 rsync -u ./com.googlecode.iterm2.plist "$HOME/.iterm2/"
-
-# hostname
-HOSTNAME="IronBurg2"
-HOSTNAME_CHANGED=0
-echo "Set up hostname to be '$HOSTNAME'"
-if [ "$(scutil --get HostName)" != "$HOSTNAME" ]; then
-  sudo scutil --set HostName "$HOSTNAME"
-  HOSTNAME_CHANGED=1
-fi
-if [ "$(scutil --get LocalHostName)" != "$HOSTNAME" ]; then
-  sudo scutil --set LocalHostName "$HOSTNAME"
-  HOSTNAME_CHANGED=1
-fi
-if [ "$(scutil --get ComputerName)" != "$HOSTNAME" ]; then
-  sudo scutil --set ComputerName "$HOSTNAME"
-  HOSTNAME_CHANGED=1
-fi
-if [[ $HOSTNAME_CHANGED != 0 ]] ; then
-  dscacheutil -flushcache
-fi
 
 # git configuration
 echo "Set up git config"

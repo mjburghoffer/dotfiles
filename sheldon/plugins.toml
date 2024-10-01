@@ -48,3 +48,6 @@ apply = ["defer"]
 
 [plugins.oh-my-zsh]
 github = "ohmyzsh/ohmyzsh"
+
+[plugins.jdks]
+local = "~/.zsh_local_plugins/"

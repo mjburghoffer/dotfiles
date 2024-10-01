@@ -56,5 +56,3 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:$VOLTA_HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
-
-alias java="$JAVA_HOME/bin/java"
