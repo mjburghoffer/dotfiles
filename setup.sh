@@ -30,7 +30,7 @@ fi
 
 # install stuff
 brew update --quiet && brew install diff-so-fancy git zsh sheldon fzf python3 pyenv jq openssl starship neovim nvm zig wasmtime wabt fd
-brew install --cask temurin temurin@11 temurin@17 temurin@21
+brew install --cask temurin temurin@11 temurin@21
 
 # install xcode-select
 XCODE_SELECT_STATUS=0
