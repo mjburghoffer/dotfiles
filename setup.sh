@@ -5,7 +5,7 @@ set -euo pipefail
 # mac os stuff
 echo "Set up brew os settings"
 defaults write -g KeyRepeat -int 1
-defaults write -g InitialKeyRepeat -int 10
+defaults write -g InitialKeyRepeat -int 15
 
 # install + set up brew
 BREWPATH=""
