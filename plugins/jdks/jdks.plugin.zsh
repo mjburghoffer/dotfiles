@@ -1,14 +1,15 @@
 function jdks() {
     if [[ $# -lt 2 ]]; then
-      echo "Must supply a version and command"
-      exit 1
-    fi
-    local VERSION=$1
-    local CMD=$2
-    shift
-    shift
+      >&2 echo "Must supply a version and command"
+    else
+      local VERSION=$1
+      local VERSION=$1
+      local CMD=$2
+      shift
+      shift
 
-    /usr/libexec/java_home -F -v "$VERSION" --exec "$CMD" "$@"
+      /usr/libexec/java_home -F -v "$VERSION" --exec "$CMD" "$@"
+    fi
 }
 
 function _jdks {
