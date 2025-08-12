@@ -29,7 +29,7 @@ if [[ $BREW_STATUS != 0 ]] ; then
 fi
 
 # install stuff
-brew update --quiet && brew install diff-so-fancy git zsh sheldon fzf python3 pyenv jq openssl starship neovim nvm zig wasmtime wabt fd
+brew update --quiet && brew install diff-so-fancy git zsh sheldon fzf python3 pyenv jq openssl starship neovim nvm zig wasmtime wabt fd withgraphite/tap/graphite
 brew install --cask temurin temurin@11 temurin@21
 
 # install xcode-select
@@ -46,6 +46,12 @@ rsync -u ./sheldon/plugins.toml "$HOME/.config/sheldon/plugins.toml"
 echo "Set up local plugins"
 mkdir -p "$HOME/.zsh_local_plugins"
 rsync -a -u ./plugins/ "$HOME/.zsh_local_plugins/"
+
+# graphite
+if whence gt >/dev/null 2>&1; then
+  mkdir -p "$HOME/.zsh_local_plugins/graphite-completions"
+  gt completion zsh > "$HOME/.zsh_local_plugins/graphite-completions/gt.plugin.zsh"
+fi
 
 sheldon lock
 

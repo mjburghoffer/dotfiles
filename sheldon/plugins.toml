@@ -50,4 +50,7 @@ apply = ["defer"]
 github = "ohmyzsh/ohmyzsh"
 
 [plugins.jdks]
-local = "~/.zsh_local_plugins/"
+local = "~/.zsh_local_plugins/jdks"
+
+[plugins.graphite-completions]
+local = "~/.zsh_local_plugins/graphite-completions"
