@@ -10,7 +10,7 @@ fi
 
 # env vars
 export VOLTA_HOME="$HOME/.volta"
-export PROJECTS_HOME="$HOME/projects"
+export PROJECTS_HOME="/usr/local/repos"
 export IRONCLAD_HOME="$PROJECTS_HOME/ironclad"
 export HARBOR_HOME="$IRONCLAD_HOME/harbor"
 export SUPER_HOME="$IRONCLAD_HOME/super"
